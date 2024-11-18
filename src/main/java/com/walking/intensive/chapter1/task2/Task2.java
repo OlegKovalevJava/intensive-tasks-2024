@@ -33,12 +33,52 @@ package com.walking.intensive.chapter1.task2;
  */
 public class Task2 {
     public static void main(String[] args) {
-//        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(getFlatLocation(-1, 1, 1));
+        System.out.println(getFlatLocation(2, 1, 8));
+        System.out.println(getFlatLocation(4, 4, 4));
+        System.out.println(getFlatLocation(10, 1, 41));
+        System.out.println(getFlatLocation(100, 100, 100));
     }
 
     static String getFlatLocation(int floorAmount, int entranceAmount, int flatNumber) {
-        //        Место для вашего кода
 
-        return null; // Заглушка. При реализации - удалить
+        if (floorAmount < 1 || entranceAmount < 1 || flatNumber < 1) {
+            return "Некорректные входные данные";
+        }
+
+        final int flatsOnFloor = 4;
+
+        int flatsInEntrance = floorAmount * flatsOnFloor;
+
+        if ((entranceAmount * flatsInEntrance) < flatNumber) {
+            return "Такой квартиры не существует";
+        }
+
+        int entranceNumber;
+
+        if ((flatNumber % flatsInEntrance) == 0) {
+            entranceNumber = (flatNumber / flatsInEntrance);
+        } else {
+            entranceNumber = (flatNumber / flatsInEntrance) + 1;
+        }
+
+        int floorNumber;
+
+        if ((flatNumber % flatsOnFloor) == 0) {
+            floorNumber = (flatNumber / flatsOnFloor) - (floorAmount * (entranceNumber - 1));
+        } else {
+            floorNumber = ((flatNumber / flatsOnFloor) + 1) - (floorAmount * (entranceNumber - 1));
+        }
+
+        String flatLocation = switch (flatNumber % flatsOnFloor) {
+            case (0) -> "справа от лифта, вправо";
+            case (1) -> "слева от лифта, влево";
+            case (2) -> "слева от лифта, вправо";
+            case (3) -> "справа от лифта, влево";
+            default -> "";
+        };
+
+        return flatNumber + " кв - " + entranceNumber + " подъезд, " + floorNumber + " этаж, " + flatLocation;
     }
 }
+
