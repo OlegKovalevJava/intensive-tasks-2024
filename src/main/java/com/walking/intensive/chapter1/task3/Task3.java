@@ -25,12 +25,27 @@ package com.walking.intensive.chapter1.task3;
  */
 public class Task3 {
     public static void main(String[] args) {
-//        Для собственных проверок можете делать любые изменения в этом методе
+
+        System.out.println(isLeap(0));
+        System.out.println(isLeap(1));
+        System.out.println(isLeap(100));
+        System.out.println(isLeap(400));
+        System.out.println(isLeap(1582));
+        System.out.println(isLeap(2020));
+        System.out.println(isLeap(2021));
     }
 
     static boolean isLeap(int year) {
-        //Место для вашего кода
 
-        return false; // Заглушка. При реализации - удалить
+        if (year < 1) {
+            System.out.println("Григорианский календарь начинается со значения: '1 год н.э.', введите значение >= 1");
+            return false;
+        }
+
+        if ((year % 4 == 0) && (year % 100 != 0)) {
+            return true;
+        }
+
+        return year % 400 == 0;
     }
 }
