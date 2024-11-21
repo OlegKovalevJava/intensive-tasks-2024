@@ -24,17 +24,14 @@ package com.walking.intensive.chapter1.task4;
  */
 public class Task4 {
     public static void main(String[] args) {
-
         double a = 0;
         double b = 0;
         double c = 0;
-
 
         System.out.println(solveEquation(1, 0, 0));
     }
 
     static String solveEquation(double a, double b, double c) {
-
         if (a == 0 && b == 0 && c == 0) {
             return "Бесконечное множество решений.";
         }
@@ -44,18 +41,16 @@ public class Task4 {
         }
 
         if (a == 0) {
-            double x1 = (-c / b);
+            double x1 = -c / b;
             return "Количество решений: 1. Корень: " + x1;
         }
 
         double discriminant = b * b - 4 * a * c;
 
         return getResult(a, b, discriminant);
-
     }
 
     private static String getResult(double a, double b, double discriminant) {
-
         String result;
 
         if (discriminant < 0) {
