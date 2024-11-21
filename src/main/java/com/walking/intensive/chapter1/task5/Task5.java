@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter1.task5;
 
+import java.util.Arrays;
+
 /**
  * Задача поиска площади, величин углов, длин высот, биссектрис, медиан, радиусов вписанной и описанной вокруг
  * треугольника окружностей является центральной в Геометрии.
@@ -10,7 +12,7 @@ package com.walking.intensive.chapter1.task5;
  */
 public class Task5 {
     public static void main(String[] args) {
-//        Для собственных проверок можете делать любые изменения в этом методе
+
     }
 
     /**
@@ -23,9 +25,12 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaByHeron(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double halfPerimeter = (a + b + c) / 2;
+            return Math.sqrt((halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c)));
+        }
 
-        return 0; // Заглушка. При реализации - удалить
+        return -1;
     }
 
     /**
@@ -36,9 +41,18 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getHeights(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double height1 = getAreaByHeron(a, b, c) * 2 / a;
+            double height2 = getAreaByHeron(a, b, c) * 2 / b;
+            double height3 = getAreaByHeron(a, b, c) * 2 / c;
 
-        return null; // Заглушка. При реализации - удалить
+            double[] heights = {height1, height2, height3};
+            Arrays.sort(heights);
+
+            return heights;
+        }
+
+        return new double[0];
     }
 
     /**
@@ -49,9 +63,18 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getMedians(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double median1 = Math.sqrt(2 * Math.pow(a, 2) + 2 * Math.pow(b, 2) - Math.pow(c, 2)) / 2;
+            double median2 = Math.sqrt(2 * Math.pow(a, 2) + 2 * Math.pow(c, 2) - Math.pow(b, 2)) / 2;
+            double median3 = Math.sqrt(2 * Math.pow(b, 2) + 2 * Math.pow(c, 2) - Math.pow(a, 2)) / 2;
 
-        return null; // Заглушка. При реализации - удалить
+            double[] medians = {median1, median2, median3};
+            Arrays.sort(medians);
+
+            return medians;
+        }
+
+        return new double[0];
     }
 
     /**
@@ -62,9 +85,18 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getBisectors(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double bisector1 = Math.sqrt((a * b * (a + b + c) * (a + b - c))) / (a + b);
+            double bisector2 = Math.sqrt((a * c * (a + c + b) * (a + c - b))) / (a + c);
+            double bisector3 = Math.sqrt((b * c * (b + c + a) * (b + c - a))) / (b + c);
 
-        return null; // Заглушка. При реализации - удалить
+            double[] bisectors = {bisector1, bisector2, bisector3};
+            Arrays.sort(bisectors);
+
+            return bisectors;
+        }
+
+        return new double[0];
     }
 
     /**
@@ -75,9 +107,26 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getAngles(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double cosineA = (Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b);
+            double angleRadiansA = Math.acos(cosineA);
+            double angleDegreesA = Math.toDegrees(angleRadiansA);
 
-        return null; // Заглушка. При реализации - удалить
+            double cosineB = (Math.pow(a, 2) + Math.pow(c, 2) - Math.pow(b, 2)) / (2 * a * c);
+            double angleRadiansB = Math.acos(cosineB);
+            double angleDegreesB = Math.toDegrees(angleRadiansB);
+
+            double cosineC = (Math.pow(b, 2) + Math.pow(c, 2) - Math.pow(a, 2)) / (2 * b * c);
+            double angleRadiansC = Math.acos(cosineC);
+            double angleDegreesC = Math.toDegrees(angleRadiansC);
+
+            double[] angles = {angleDegreesA, angleDegreesB, angleDegreesC};
+            Arrays.sort(angles);
+
+            return angles;
+        }
+
+        return new double[0];
     }
 
     /**
@@ -88,9 +137,12 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getInscribedCircleRadius(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double halfPerimeter = (a + b + c) / 2;
+            return getAreaByHeron(a, b, c) / halfPerimeter;
+        }
 
-        return 0; // Заглушка. При реализации - удалить
+        return -1;
     }
 
     /**
@@ -101,9 +153,11 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getCircumradius(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            return (a * b * c) / (4 * getAreaByHeron(a, b, c));
+        }
 
-        return 0; // Заглушка. При реализации - удалить
+        return -1;
     }
 
     /**
@@ -121,8 +175,17 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaAdvanced(double a, double b, double c) {
-        //        Место для вашего кода
+        if (isValidTriangle(a, b, c)) {
+            double cosineA = (b * b + c * c - a * a) / (2.0 * b * c);
+            double sineA = Math.sqrt(1 - cosineA * cosineA);
 
-        return 0; // Заглушка. При реализации - удалить
+            return 0.5 * b * c * sineA;
+        }
+
+        return -1;
+    }
+
+    static boolean isValidTriangle(double a, double b, double c) {
+        return ((a > 0 && b > 0 && c > 0) && (a + b > c && a + c > b && b + c > a));
     }
 }
