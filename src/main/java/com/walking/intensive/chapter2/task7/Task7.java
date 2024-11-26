@@ -27,11 +27,46 @@ package com.walking.intensive.chapter2.task7;
  */
 public class Task7 {
     public static void main(String[] args) {
-//        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(getSumOfDivisors(220));
+        System.out.println(getSumOfDivisors(284));
+        System.out.println(getSumOfDivisors(1000000));
+
+        System.out.println(getFriendlyPair(200));
+        System.out.println(getFriendlyPair(497));
+        System.out.println(getFriendlyPair(-1));
     }
 
     static int getFriendlyPair(int n) {
-        // Ваш код
-        return 0;
+        if (n < 1 || n > 1_000_000) {
+            return -1;
+        }
+
+        int maxFriendlyNum = 0;
+
+        for (int i = 1; i < n; i++) {
+            int friendlyNumOne = getSumOfDivisors(i);
+            int friendlyNumTwo = getSumOfDivisors(friendlyNumOne);
+            int maxSumOfDivisors = Math.max(friendlyNumOne, friendlyNumTwo);
+
+            if (friendlyNumOne == friendlyNumTwo || i != friendlyNumTwo || maxSumOfDivisors >= n) {
+                continue;
+            }
+
+            maxFriendlyNum = maxSumOfDivisors;
+        }
+
+        return maxFriendlyNum;
+    }
+
+    static int getSumOfDivisors(int n) {
+        int result = 0;
+
+        for (int i = 1; i < n; i++) {
+            if (n % i == 0) {
+                result += i;
+            }
+        }
+
+        return result;
     }
 }
